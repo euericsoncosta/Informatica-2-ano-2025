@@ -6,7 +6,8 @@ import { engine } from 'express-handlebars';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = resolve(__filename);
+const __dirname = resolve(__filename, '..');
+
 
 //importando rotas
 import homeRoutes from "./src/routes/homeRoutes.js";
@@ -24,7 +25,10 @@ class App{
          // Configura o Handlebars como motor de visualização
         this.app.engine('handlebars', engine());
         this.app.set('view engine', 'handlebars');
-        this.app.set('views', resolve('src','views'));
+        this.app.set('views', resolve(__dirname,'src','views'));
+
+        //configurar pasta public 
+        this.app.use(express.static(resolve(__dirname, 'public')));
 
         this.app.use(express.json());
         //o express.json() é um middleware que faz o parse do corpo da requisição
