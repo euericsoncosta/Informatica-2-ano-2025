@@ -10,7 +10,7 @@ const __dirname = resolve(__filename, '..');
 
 
 //importando rotas
-import homeRoutes from "./src/routes/homeRoutes.js";
+import alunoRoutes from "./src/routes/alunoRoutes.js";
 
 class App{
     constructor(){//o construtor é chamado quando a classe é instanciada
@@ -44,7 +44,7 @@ class App{
         //html forms geralmente usam esse formato
     }
     routes(){
-        this.app.get("/", homeRoutes   );
+        this.app.get("/", alunoRoutes);
     }
 
 }
