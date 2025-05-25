@@ -4,12 +4,14 @@ import express from 'express';
 import{resolve} from 'path';
 import { engine } from 'express-handlebars';
 import { fileURLToPath } from 'url';
+import methodOverride from 'method-override';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = resolve(__filename, '..');
 
 
 //importando rotas
+import homeRoutes from "./src/routes/homeRoutes.js";
 import alunoRoutes from "./src/routes/alunoRoutes.js";
 
 class App{
@@ -42,9 +44,18 @@ class App{
         //usado para receber dados no formato urlencoded
         //exemplo: name=Lucas -> { name: "Lucas" }
         //html forms geralmente usam esse formato
+
+         this.app.use(methodOverride('_method'));// Configura o método de substituição para permitir PUT e DELETE via POST
+        //o methodOverride é um middleware que permite usar métodos HTTP diferentes do padrão
+        //ou seja, permite usar métodos como PUT e DELETE em formulários HTML
+        //o método padrão para formulários HTML é o POST
+        //então o methodOverride permite usar o método PUT e DELETE em formulários HTML
+        //exemplo: <form action="/alunos/1?_method=PUT" method="POST">
+        //o método PUT é usado para atualizar um recurso
     }
     routes(){
-        this.app.get("/", alunoRoutes);
+        this.app.use("/alunos", alunoRoutes);
+        this.app.use("/", homeRoutes);
     }
 
 }
