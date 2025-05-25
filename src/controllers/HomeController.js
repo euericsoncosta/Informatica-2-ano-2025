@@ -1,4 +1,4 @@
-import {alunos} from "./AlunoContriller.js";
+import {alunos} from "./AlunoController.js";
 
 class HomeController {
     listar(req, res) {

@@ -1,5 +1,5 @@
 import{Router} from 'express';
-import AlunoController from '../controllers/AlunoContriller.js';
+import AlunoController from '../controllers/AlunoController.js';
 
 const router  = Router();
 //cria uma nova instancia do Router
