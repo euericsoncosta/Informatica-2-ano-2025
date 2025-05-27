@@ -1,0 +1,87 @@
+<div class="livro-container">
+
+  <!-- Formulário de cadastro -->
+  <form action="/livros" method="post" class="livro-form">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+
+    <label for="autor">Autor:</label>
+    <input type="text" id="autor" name="autor" required>
+
+    <label for="genero">Gênero:</label>
+    <input type="text" id="genero" name="genero" required>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <!-- Tabela de livros -->
+  <table class="livro-table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Gênero</th>
+        <th colspan="2" style="text-align: center;">Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each livrosAtivos}}
+      <tr>
+        <td>{{this.titulo}}</td>
+        <td>{{this.autor}}</td>
+        <td>{{this.genero}}</td>
+        <td>
+          <form action="/livros/{{this.id}}/excluir" method="POST">
+            <button type="submit">Deletar</button>
+          </form>
+        </td>
+        <td>
+          <button type="button" onclick="openModal('{{this.id}}', '{{this.titulo}}', '{{this.autor}}', '{{this.genero}}')">Editar</button>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+</div>
+
+<!-- Modal de Edição -->
+<div id="editModal" class="livro-modal-overlay">
+  <div class="livro-modal-content">
+    <h3>Editar Livro</h3>
+    <form id="editForm" method="post">
+      <input type="hidden" name="_method" value="put">
+      <input type="hidden" id="editId" name="id">
+
+      <label for="editTitulo">Título:</label>
+      <input type="text" id="editTitulo" name="titulo" required>
+
+      <label for="editAutor">Autor:</label>
+      <input type="text" id="editAutor" name="autor" required>
+
+      <label for="editGenero">Gênero:</label>
+      <input type="text" id="editGenero" name="genero" required>
+
+      <button type="submit">Salvar</button>
+      <button type="button" onclick="closeModal()">Cancelar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openModal(id, titulo, autor, genero) {
+    document.getElementById('editId').value = id;
+    document.getElementById('editTitulo').value = titulo;
+    document.getElementById('editAutor').value = autor;
+    document.getElementById('editGenero').value = genero;
+
+    const form = document.getElementById('editForm');
+    form.action = `/livros/${id}/editar`;
+
+    document.getElementById('editModal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('editModal').style.display = 'none';
+  }
+</script>
