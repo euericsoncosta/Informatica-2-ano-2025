@@ -13,6 +13,7 @@ const __dirname = resolve(__filename, '..');
 //importando rotas
 import homeRoutes from "./src/routes/homeRoutes.js";
 import alunoRoutes from "./src/routes/alunoRoutes.js";
+import livroRoutes from "./src/routes/livroRoutes.js";
 
 class App{
     constructor(){//o construtor é chamado quando a classe é instanciada
@@ -54,8 +55,9 @@ class App{
         //o método PUT é usado para atualizar um recurso
     }
     routes(){
-        this.app.use("/alunos", alunoRoutes);
         this.app.use("/", homeRoutes);
+        this.app.use("/alunos", alunoRoutes);
+        this.app.use("/livros", livroRoutes);
     }
 
 }
